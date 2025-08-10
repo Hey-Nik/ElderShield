@@ -1,38 +1,20 @@
-
 package com.safe.eldershield.core
 
-import kotlin.math.min
+class SpamScorer {
 
-object SpamScorer {
-    // Basic heuristics; later we can plug in an on-device ML model.
-    private val suspiciousWords = listOf(
-        "otp","urgent","verify","account","bank","lottery","prize","refund",
-        "blocked","deactivated","update","kYC","kyc","click","link","bit.ly","tinyurl",
-        "upi","gift","win","password","PAN","Aadhaar","loan","crypto","investment"
+    // Use a RAW string (triple quotes) so backslashes don't need escaping.
+    // Add/remove words as you like.
+    private val spamRegex = Regex(
+        """\b(free|win|prize|lottery|claim|urgent|click|link|offer|credit|loan|otp|verify)\b""",
+        RegexOption.IGNORE_CASE
     )
 
-    fun score(text: String, from: String?): Int {
-        var score = 0
-        val t = text.lowercase()
+    fun isSpam(text: String): Boolean {
+        return spamRegex.containsMatchIn(text)
+    }
 
-        // URLs
-        val urlRegex = "(https?://|www\.|bit\.ly|tinyurl|wa\.me)".toRegex()
-        if (urlRegex.containsMatchIn(t)) score += 30
-
-        // Keywords
-        val hits = suspiciousWords.count { t.contains(it.lowercase()) }
-        score += min(50, hits * 7)
-
-        // Non-local numbers, short codes
-        if (from != null) {
-            val digits = from.filter { it.isDigit() }
-            if (digits.length < 8) score += 10
-            if (!from.startsWith("+") && digits.length >= 10) score += 5
-        }
-
-        // Excess punctuation or emojis
-        if (t.count { it == '!' } >= 3) score += 10
-
-        return score.coerceIn(0, 100)
+    fun score(text: String): Int {
+        // simple score: +1 per match
+        return spamRegex.findAll(text).count()
     }
 }

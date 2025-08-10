@@ -13,10 +13,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Ensure unzip is available
+      - name: Install unzip
         run: sudo apt-get update && sudo apt-get install -y unzip
 
-      - name: Unzip project if ZIP exists
+      - name: Unzip project (if ZIP is present)
         run: |
           if [ -f ElderShieldApp_Enhanced.zip ]; then
             unzip -o ElderShieldApp_Enhanced.zip -d .
@@ -32,20 +32,23 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Accept licenses & install minimal SDK packages
+      - name: Accept licenses & install minimal SDK
         run: |
           yes | sdkmanager --licenses
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-      # Use Gradle without wrapper by letting the action provide Gradle
-      - name: Build debug APK
-        uses: gradle/gradle-build-action@v3
-        with:
-          gradle-version: 8.7
-          arguments: ":app:assembleDebug -x lint -x test"
+      # Use modern Gradle action (no wrapper required)
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build debug APK (generate wrapper then use it)
+        run: |
+          gradle wrapper --gradle-version 8.7
+          ./gradlew :app:assembleDebug --no-daemon -x lint -x test
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: eldershield-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+

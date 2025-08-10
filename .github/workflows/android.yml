@@ -2,7 +2,7 @@ name: Build Android APK
 
 on:
   push:
-    branches: [ core-v07 ]   # change to [ main ] after you merge
+    branches: [ core-v07 ]   # change to [ main ] after merge
   workflow_dispatch:
 
 jobs:
@@ -23,7 +23,6 @@ jobs:
           yes | sdkmanager --licenses
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-      # Use the Gradle WRAPPER from the repo (best compatibility with AGP/Kotlin versions)
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
@@ -34,13 +33,12 @@ jobs:
         shell: bash
 
       - name: Upload APK artifact
-        if: success() && exists('app/build/outputs/apk/debug/app-debug.apk')
         uses: actions/upload-artifact@v4
         with:
           name: eldershield-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: warn   # no hard failure if APK is missing
 
-      # Always upload logs so errors are easy to share
       - name: Upload build logs
         if: always()
         uses: actions/upload-artifact@v4

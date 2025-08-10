@@ -1,8 +1,7 @@
 name: Build Android APK
 
 on:
-  push:
-    branches: [ core-v07 ]   # change to [ main ] after merge
+  push: { branches: [ main ] }
   workflow_dispatch:
 
 jobs:
@@ -23,21 +22,30 @@ jobs:
           yes | sdkmanager --licenses
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
+      # Use your repo's Gradle wrapper for consistency
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Build debug APK (tee logs)
-        run: |
-          ./gradlew --version
-          ./gradlew :app:assembleDebug --no-daemon --stacktrace --info -x lint -x test | tee build-log.txt
+      - name: Build debug APK (verbose, save logs)
         shell: bash
+        run: |
+          set -o pipefail
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace --info -x lint -x test 2>&1 | tee build-log.txt
+
+      - name: Show Kotlin compiler errors (quick view)
+        if: always()
+        run: |
+          echo "---- Kotlin errors (if any) ----"
+          grep -n "^[eE]:" build-log.txt || true
+          echo "---- Last 300 lines ----"
+          tail -n 300 build-log.txt
 
       - name: Upload APK artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: eldershield-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: warn   # no hard failure if APK is missing
 
       - name: Upload build logs
         if: always()

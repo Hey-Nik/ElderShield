@@ -1,14 +1,15 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    // id 'kotlin-parcelize' // enable ONLY if you use @Parcelize in code
 }
 
 android {
-    namespace "com.eldershield.app"
+    namespace "com.safe.eldershield"
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.eldershield.app"
+        applicationId "com.safe.eldershield"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -37,7 +38,7 @@ dependencies {
     implementation "com.google.android.material:material:1.12.0"
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
 
-    // only if you really use them; otherwise remove
+    // keep only if used
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
     implementation "androidx.datastore:datastore-preferences:1.1.1"
 }

@@ -1,36 +1,44 @@
-
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize' // keep only if you actually use @Parcelize
 }
 
 android {
-    namespace 'com.safe.eldershield'
+    namespace "com.eldershield.app"
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.safe.eldershield"
-        minSdk 26
+        applicationId "com.eldershield.app"
+        minSdk 24
         targetSdk 34
-        versionCode 7
-        versionName "0.7.0"
+        versionCode 1
+        versionName "0.1.0"
     }
 
-    buildFeatures { viewBinding true }
+    buildFeatures {
+        viewBinding true
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    kotlinOptions { jvmTarget = '17' }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.13.1'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.activity:activity-ktx:1.9.1'
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.datastore:datastore-preferences:1.1.1'
+    implementation platform("org.jetbrains.kotlin:kotlin-bom:2.0.0")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+
+    implementation "androidx.core:core-ktx:1.13.1"
+    implementation "androidx.appcompat:appcompat:1.7.0"
+    implementation "com.google.android.material:material:1.12.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+
+    // only if you really use them; otherwise remove
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+    implementation "androidx.datastore:datastore-preferences:1.1.1"
 }

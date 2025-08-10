@@ -1,7 +1,28 @@
+
 <resources>
     <string name="app_name">ElderShield</string>
-    <string name="setup_instructions">1) Grant Notification access
-2) Enable Draw-over-apps
-3) (Optional) Enable Accessibility service
-4) Set secret phrase &amp; caregiver number</string>
+    <string name="a11y_desc">Monitors notifications to highlight risky content. No data leaves device.</string>
+
+    <string name="setup_title">Let’s get you protected</string>
+    <string name="step1">Grant Notification Access</string>
+    <string name="step2">Enable Draw over other apps</string>
+    <string name="step3">Enable Accessibility (optional)</string>
+    <string name="step4">Set secret phrase &amp; caregiver number</string>
+    <string name="step5">Grant read permissions for one-time scan</string>
+    <string name="open">Open</string>
+    <string name="configured">Configured</string>
+    <string name="not_configured">Not configured</string>
+    <string name="scan_now">Scan My Phone Now</string>
+    <string name="review_results">Review Results</string>
+
+    <string name="secret_phrase">Secret phrase</string>
+    <string name="caregiver_number">Caregiver phone</string>
+    <string name="save">Save</string>
+    <string name="saved">Saved</string>
+
+    <string name="scanning">Scanning…</string>
+    <string name="sms_count">Scanned %1$d SMS</string>
+    <string name="call_count">Scanned %1$d calls</string>
+    <string name="done">Done</string>
+    <string name="no_results">No suspected spam found.</string>
 </resources>

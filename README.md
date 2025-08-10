@@ -1,9 +1,9 @@
-# ElderShield
 
-This repository contains a minimal, buildable Android project with:
-- `app/` module (Kotlin + resources)
-- Gradle wrapper scripts (`gradlew`, `gradlew.bat`) and `gradle/wrapper/gradle-wrapper.properties`
-- Root `build.gradle`, `settings.gradle`, `gradle.properties`
+# ElderShield (v0.7)
+- Guided onboarding with real permission links
+- One-time scan of **SMS** and **Call Logs**
+- On-device spam scoring (heuristics) + user feedback
+- No INTERNET permission
 
-## Build (GitHub Actions)
-The provided workflow installs Android SDK 34 and builds a debug APK.
+## Build
+- Gradle 8.7, AGP 8.6.0, Kotlin 2.0

@@ -1,16 +1,13 @@
-
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp"
-    android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
-    <!-- shield -->
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- simple heart/shield-ish mark; valid VectorDrawable -->
     <path
-        android:fillColor="#2D7FF9"
-        android:pathData="M54,6 L92,20 V56c0,22 -16,34 -38,44 -22,-10 -38,-22 -38,-44 V20z"/>
-    <!-- phone rectangle -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M44,28 h20 a4,4 0 0 1 4,4 v36 a4,4 0 0 1 -4,4 h-20 a4,4 0 0 1 -4,-4 v-36 a4,4 0 0 1 4,-4z"/>
-    <circle android:fillColor="#2D7FF9" android:cx="54" android:cy="64" android:r="3"/>
+        android:fillColor="#4F46E5"
+        android:pathData="M12,21.35l-1.45,-1.32C5.4,15.36 2,12.28 2,8.5 2,6 4,4 6.5,4
+                          c1.74,0 3.41,1.01 4.5,2.09C12.09,5.01 13.76,4 15.5,4
+                          18,4 20,6 20,8.5c0,3.78 -3.4,6.86 -8.55,11.54L12,21.35z"/>
 </vector>
+

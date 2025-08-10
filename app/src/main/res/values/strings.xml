@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ElderShield</string>
+    <string name="setup_instructions">1) Grant Notification access
+2) Enable Draw-over-apps
+3) (Optional) Enable Accessibility service
+4) Set secret phrase &amp; caregiver number</string>
+</resources>

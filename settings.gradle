@@ -1,0 +1,2 @@
+rootProject.name = 'ElderShield'
+include ':app'

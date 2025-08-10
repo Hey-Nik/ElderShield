@@ -21,20 +21,14 @@ jobs:
           yes | sdkmanager --licenses
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-      # 👉 This provides a Gradle binary so "gradle wrapper" works
-      - name: Set up Gradle runtime
+      # ✅ Use Gradle without a wrapper
+      - name: Set up Gradle runtime (8.7)
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.7
 
-      - name: Generate Gradle wrapper
-        run: gradle wrapper --gradle-version 8.7
-
-      - name: Make wrapper executable
-        run: chmod +x ./gradlew
-
       - name: Build debug APK (verbose)
-        run: ./gradlew :app:assembleDebug --no-daemon --stacktrace --info -x lint -x test
+        run: gradle :app:assembleDebug --no-daemon --stacktrace --info -x lint -x test
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4

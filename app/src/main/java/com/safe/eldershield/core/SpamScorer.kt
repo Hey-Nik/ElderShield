@@ -1,20 +1,24 @@
 package com.safe.eldershield.core
 
-class SpamScorer {
+object SpamScorer {
 
-    // Use a RAW string (triple quotes) so backslashes don't need escaping.
-    // Add/remove words as you like.
-    private val spamRegex = Regex(
-        """\b(free|win|prize|lottery|claim|urgent|click|link|offer|credit|loan|otp|verify)\b""",
-        RegexOption.IGNORE_CASE
+    // Simple patterns; triple-quoted strings avoid bad escape sequences.
+    private val patterns = listOf(
+        Regex("""\bprize\b""", RegexOption.IGNORE_CASE),
+        Regex("""\bwin(?:ner|ning)?\b""", RegexOption.IGNORE_CASE),
+        Regex("""\bOTP\b""", RegexOption.IGNORE_CASE),
+        Regex("""\baccount\b""", RegexOption.IGNORE_CASE),
+        Regex("""http[s]?://\S+""", RegexOption.IGNORE_CASE)
     )
 
-    fun isSpam(text: String): Boolean {
-        return spamRegex.containsMatchIn(text)
-    }
-
-    fun score(text: String): Int {
-        // simple score: +1 per match
-        return spamRegex.findAll(text).count()
+    /**
+     * Returns a score from 0..100 based on presence of suspicious patterns.
+     */
+    fun score(text: String?): Int {
+        val t = text?.trim().orEmpty()
+        if (t.isEmpty()) return 0
+        var s = 0
+        for (rx in patterns) if (rx.containsMatchIn(t)) s += 20
+        return s.coerceIn(0, 100)
     }
 }
